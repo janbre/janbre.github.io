@@ -10,11 +10,12 @@ function Planet(name, img, orbitRadius, angle, yearLength, scale) {
   this.img = new Image();
   this.img.src = img;
   this.orbitRadius = orbitRadius;
-  this.radius = this.img.width*10890;
+  this.radius = this.img.width/2;
   this.angle = angle;
   this.startingAngle = angle;
   this.yearLength = yearLength;
-  this.scale = scale;
+  this.scaleX = scale;
+  this.scaleY = scale;
   this.x = 0;
   this.y = 0;
   this.orbitTrail = 0;
@@ -25,9 +26,18 @@ function Planet(name, img, orbitRadius, angle, yearLength, scale) {
     } else {
       this.drawOrbit();
     }
+    if (this.name == "Saturn") {
+      this.scaleY = this.scaleX*2.5;
+    }
     this.x = (CANVAS_SIZE / 2) + (this.orbitRadius * Math.cos(this.angle * Math.PI / 180));
     this.y = (CANVAS_SIZE / 2) + (this.orbitRadius * Math.sin(this.angle * Math.PI / 180));
-    ctx.drawImage(this.img, (this.x - this.radius*scale), this.y - this.radius/scale, this.img.width/scale, this.img.width/scale);
+//    ctx.drawImage(this.img, (this.x - (this.radius*4)), this.y - this.radius/scale, this.img.width/scale, this.img.width/scale);
+    //ctx.drawImage(this.img, this.x - this.radius,40,this.img.width/scale, this.img.width/scale); for a head on view
+    var offset = this.img.width/2; 
+    ctx.drawImage(this.img, (this.x - offset/this.scaleX), (this.y - offset/this.scaleY), this.img.width/this.scaleX, this.img.width/this.scaleY);
+
+    var position = this.x - this.radius/scale;
+    var xx = this.x - this.radius*4;
     this.angle += (1/this.yearLength)*SPEED;
     if (this.angle >= 360) {
       this.angle = 0;
@@ -112,7 +122,6 @@ function createOrbit(ctx, centerX, centerY, radius, startAngle, endAngle) {
   orbit.arc(centerX, centerY, radius, startAngle, endAngle);
   return orbit;
 }
-
 
 function drawBackground() {
   // TODO: have variable opacity. Expand the star field to fill the browser window, but let
