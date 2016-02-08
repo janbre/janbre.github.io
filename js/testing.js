@@ -1,77 +1,121 @@
 var CANVAS_SIZE = 1080;
+var SPEED = 1;
 var x = CANVAS_SIZE / 2;
 var y = CANVAS_SIZE / 2;
-
-var mercuryRadiusOrbit = 8;
-var venusRadiusOrbit = 11;
-var earthRadiusOrbit = 16.5;
-var marsRadiusOrbit = 24;
-var jupiterRadiusOrbit = 82;
-var saturnRadiusOrbit = 144;
-var uranusRadiusOrbit = 333;
-var neptuneRadiusOrbit = 500;
-var mercuryRadiusPlanet;
-var venusRadiusPlanet;
-var earthRadiusPlanet;
-var marsRadiusPlanet;
-var jupiterRadiusPlanet;
-var saturnRadiusPlanet;
-var uranusRadiusPlanet;
-var neptuneRadiusPlanet;
-var mercuryOrbit;
-var venusOrbit;
-var earthOrbit;
-var marsOrbit;
-var jupiterOrbit;
-var saturnOrbit;
-var uranusOrbit;
-var neptuneOrbit;
-
-var mercury = new Image();
-var venus = new Image();
-var earth = new Image();
-var mars = new Image();
-var jupiter = new Image();
-var saturn = new Image();
-var uranus = new Image();
-var neptune = new Image();
-var background = new Image();
-
 var ctx;
 
+// Mercury
+var mercury = new Image();
 var mercuryAngle = 0;
+var mercuryRadiusOrbit = 8;
+var mercuryYear = 0.24;
+var mercuryOrbit;
+var mercuryRadiusPlanet;
 var mercuryX;
 var mercuryY;
-var venusAngle = 0;
+var MERCURY = {}
+MERCURY["orbitRadius"] = mercuryRadiusOrbit;
+MERCURY["angle"] = mercuryAngle;
+MERCURY["startingAngle"] = 0;
+
+// Venus
+var venus = new Image();
+var venusRadiusOrbit = 11;
+var venusAngle = 10;
+var venusYear = 0.62;
+var venusRadiusPlanet;
+var venusOrbit;
 var venusX;
 var venusY;
-var earthAngle = 0;
+var VENUS = {}
+VENUS["orbitRadius"] = venusRadiusOrbit;
+VENUS["angle"] = venusAngle;
+VENUS["startingAngle"] = 10;
+
+// Earth
+var earth = new Image();
+var earthRadiusOrbit = 16.5;
+var earthAngle = 60;
+var earthYear = 1;
+var earthRadiusPlanet;
+var earthOrbit;
 var earthX;
 var earthY;
-var marsAngle = 0;
+var EARTH = {}
+EARTH["orbitRadius"] = earthRadiusOrbit;
+EARTH["angle"] = earthAngle;
+EARTH["startingAngle"] = 60;
+
+// Mars
+var mars = new Image();
+var marsRadiusOrbit = 24;
+var marsAngle = 245;
+var marsYear = 1.9;
+var marsRadiusPlanet;
+var marsOrbit;
 var marsX;
 var marsY;
-var jupiterAngle = 0;
+
+var MARS = {}
+MARS["orbitRadius"] = marsRadiusOrbit;
+MARS["angle"] = marsAngle;
+MARS["startingAngle"] = 245;
+
+// Jupiter
+var jupiter = new Image();
+var jupiterRadiusOrbit = 82;
+var jupiterAngle = 245;
+var jupiterYear = 12;
+var jupiterRadiusPlanet;
+var jupiterOrbit;
 var jupiterX;
 var jupiterY;
-var saturnAngle = 0;
+
+var JUPITER = {};
+JUPITER["orbitRadius"] = jupiterRadiusOrbit;
+JUPITER["angle"] = jupiterAngle;
+JUPITER["startingAngle"] = 245;
+
+// Saturn
+var saturn = new Image();
+var saturnRadiusOrbit = 144;
+var saturnAngle = 245;
+var saturnYear = 29.45;
+var saturnRadiusPlanet;
+var saturnOrbit;
 var saturnX;
 var saturnY;
+var SATURN = {};
+SATURN["orbitRadius"] = saturnRadiusOrbit;
+SATURN["angle"] = saturnAngle;
+
+// Uranus
+var uranus = new Image();
+var uranusRadiusOrbit = 333;
 var uranusAngle = 0;
+var uranusYear = 84;
+var uranusRadiusPlanet;
+var uranusOrbit;
 var uranusX;
 var uranusY;
+var URANUS = {}
+URANUS["orbitRadius"] = uranusRadiusOrbit;
+URANUS["angle"] = uranusAngle;
+
+// Neptune
+var neptune = new Image();
+var neptuneRadiusOrbit = 500;
 var neptuneAngle = 0;
+var neptuneYear = 164.8;
+var neptuneRadiusPlanet;
+var neptuneOrbit;
 var neptuneX;
 var neptuneY;
+var NEPTUNE = {}
+NEPTUNE["orbitRadius"] = neptuneRadiusOrbit;
+NEPTUNE["angle"] = neptuneAngle;
 
-var earthYear = 1;
-var mercuryYear = 0.24;
-var venusYear = 0.62;
-var marsYear = 1.9;
-var jupiterYear = 12;
-var saturnYear = 29.45;
-var uranusYear = 84;
-var neptuneYear = 164.8;
+var background = new Image();
 
 function init() {
   var canvas = document.getElementById('tutorial');
@@ -93,7 +137,6 @@ function init() {
   uranus.src = 'img/uranus.png';
   neptune.src = 'img/neptune.png';
   background.src = 'img/stars.jpg';
-  //draw();
   window.requestAnimationFrame(draw);
 }
 
@@ -114,17 +157,16 @@ function draw() {
   ctx.clearRect(0,0,CANVAS_SIZE, CANVAS_SIZE);
   ctx.drawImage(background, 0, 0);
   ctx.strokeStyle = 'rgba(0,152,255,0.4)';
-  ctx.stroke(earthOrbit);
-  ctx.stroke(mercuryOrbit);
-  ctx.stroke(venusOrbit);
-  ctx.stroke(marsOrbit);
-  ctx.stroke(jupiterOrbit);
-  ctx.stroke(saturnOrbit);
-  ctx.stroke(uranusOrbit);
-  ctx.stroke(neptuneOrbit);
+  //ctx.stroke(earthOrbit);
+  //ctx.stroke(mercuryOrbit);
+  //ctx.stroke(venusOrbit);
+  //ctx.stroke(marsOrbit);
+  //ctx.stroke(jupiterOrbit);
+  //ctx.stroke(saturnOrbit);
+  //ctx.stroke(uranusOrbit);
+  //ctx.stroke(neptuneOrbit);
   animateMercury();
   animateVenus();
-  // TODO:
   animateEarth();
   animateMars();
   animateJupiter();
@@ -147,88 +189,115 @@ function drawBackgroud() {
   return null;
 }
 
-function animateOrbit(orbit) {
-  // TODO: the orbiting planet trails an outline of the orbit that fades away
+function animateOrbit(planet) {
+  // Do not draw partial orbit to begin with. Let planet draw orbit until 120 degrees and then keep a trail of that many degrees
+  if (planet["startingAngle"]) {
+    if ((planet["angle"] - planet["startingAngle"]) > 120) {
+      var orbit = createOrbit(ctx, x, y, planet["orbitRadius"], ((planet["angle"]-120)*Math.PI)/180, (planet["angle"]*Math.PI)/180);
+    } else {
+      var orbit = createOrbit(ctx, x, y, planet["orbitRadius"], ((planet["startingAngle"])*Math.PI)/180, (planet["angle"]*Math.PI)/180);
+    }
+    ctx.stroke(orbit);
+  } else {
+    // the orbiting planet trails an outline of the orbit that fades away
+    var orbit = createOrbit(ctx, x, y, planet["orbitRadius"], ((planet["angle"]-120)*Math.PI)/180, (planet["angle"]*Math.PI)/180);
+    ctx.stroke(orbit);
+  }
   return null;
 }
 
 function animateMercury() {
-  // TODO: use parameters for Mercury
-  mercuryX = (CANVAS_SIZE / 2) - (mercuryRadiusOrbit * Math.cos(mercuryAngle * Math.PI / 180));
-  mercuryY = (CANVAS_SIZE / 2) - (mercuryRadiusOrbit * Math.sin(mercuryAngle * Math.PI / 180));
+  animateOrbit(MERCURY);
+  mercuryX = (CANVAS_SIZE / 2) + (mercuryRadiusOrbit * Math.cos(mercuryAngle * Math.PI / 180));
+  mercuryY = (CANVAS_SIZE / 2) + (mercuryRadiusOrbit * Math.sin(mercuryAngle * Math.PI / 180));
   ctx.drawImage(mercury, (mercuryX - mercury.width/4), mercuryY - mercury.width/4, mercury.width*0.5, mercury.height*0.5);
-  mercuryAngle += 1/mercuryYear;
+  mercuryAngle += (1/mercuryYear)*SPEED;
+  MERCURY["angle"] = mercuryAngle;
   if (mercuryAngle >= 360) {
     mercuryAngle = 0;
   }
 }
 
 function animateVenus() {
-  venusX = (CANVAS_SIZE / 2) - (venusRadiusOrbit * Math.cos(venusAngle * Math.PI / 180));
-  venusY = (CANVAS_SIZE / 2) - (venusRadiusOrbit * Math.sin(venusAngle * Math.PI / 180));
+  animateOrbit(VENUS);
+  venusX = (CANVAS_SIZE / 2) + (venusRadiusOrbit * Math.cos(venusAngle * Math.PI / 180));
+  venusY = (CANVAS_SIZE / 2) + (venusRadiusOrbit * Math.sin(venusAngle * Math.PI / 180));
   ctx.drawImage(venus, (venusX - venus.width/2), venusY - venus.width/2, venus.width*1, venus.height*1);
-  venusAngle += 1/venusYear;
+  venusAngle += (1/venusYear)*SPEED;
+  VENUS["angle"] = venusAngle;
   if (venusAngle >= 360) {
     venusAngle = 0;
   }
 }
 
 function animateEarth() {
-  earthX = (CANVAS_SIZE / 2) - (earthRadiusOrbit * Math.cos(earthAngle * Math.PI / 180));
-  earthY = (CANVAS_SIZE / 2) - (earthRadiusOrbit * Math.sin(earthAngle * Math.PI / 180));
+  animateOrbit(EARTH);
+  earthX = (CANVAS_SIZE / 2) + (earthRadiusOrbit * Math.cos(earthAngle * Math.PI / 180));
+  earthY = (CANVAS_SIZE / 2) + (earthRadiusOrbit * Math.sin(earthAngle * Math.PI / 180));
   ctx.drawImage(earth, (earthX - earth.width/4), earthY - earth.width/4, earth.width*0.5, earth.height*0.5);
-  earthAngle += 1/earthYear;
+  earthAngle += (1/earthYear)*SPEED;
+  EARTH["angle"] = earthAngle;
   if (earthAngle >= 360) {
     earthAngle = 0;
   }
 }
 
 function animateMars() {
-  marsX = (CANVAS_SIZE / 2) - (marsRadiusOrbit * Math.cos(marsAngle * Math.PI / 180));
-  marsY = (CANVAS_SIZE / 2) - (marsRadiusOrbit * Math.sin(marsAngle * Math.PI / 180));
+  marsX = (CANVAS_SIZE / 2) + (marsRadiusOrbit * Math.cos(marsAngle * Math.PI / 180));
+  marsY = (CANVAS_SIZE / 2) + (marsRadiusOrbit * Math.sin(marsAngle * Math.PI / 180));
   ctx.drawImage(mars, (marsX-mars.width/18), marsY-mars.width/18, mars.width*0.111, mars.height*0.111);
-  marsAngle += 1/marsYear;
+  marsAngle += (1/marsYear)*SPEED;
+  MARS["angle"] = marsAngle;
   if (marsAngle >= 3600) {
     marsAngle = 0;
   }
+  animateOrbit(MARS);
 }
 
 function animateJupiter() {
-  jupiterX = (CANVAS_SIZE / 2) - (jupiterRadiusOrbit * Math.cos(jupiterAngle * Math.PI / 180));
-  jupiterY = (CANVAS_SIZE / 2) - (jupiterRadiusOrbit * Math.sin(jupiterAngle * Math.PI / 180));
+  animateOrbit(JUPITER);
+  jupiterX = (CANVAS_SIZE / 2) + (jupiterRadiusOrbit * Math.cos(jupiterAngle * Math.PI / 180));
+  jupiterY = (CANVAS_SIZE / 2) + (jupiterRadiusOrbit * Math.sin(jupiterAngle * Math.PI / 180));
   ctx.drawImage(jupiter, (jupiterX-jupiter.width/4), jupiterY-jupiter.width/4, jupiter.width*0.5, jupiter.height*0.5);
-  jupiterAngle += 1/jupiterYear;
-  if (jupiterAngle >= 3600) {
+  jupiterAngle += (1/jupiterYear)*SPEED;
+  JUPITER["angle"] = jupiterAngle;
+  if (jupiterAngle >= 360) {
     jupiterAngle = 0;
   }
+  //animateOrbit(jupiterOrbit);
 }
 
 function animateSaturn() {
-  saturnX = (CANVAS_SIZE / 2) - (saturnRadiusOrbit * Math.cos(saturnAngle * Math.PI / 180));
-  saturnY = (CANVAS_SIZE / 2) - (saturnRadiusOrbit * Math.sin(saturnAngle * Math.PI / 180));
+  saturnX = (CANVAS_SIZE / 2) + (saturnRadiusOrbit * Math.cos(saturnAngle * Math.PI / 180));
+  saturnY = (CANVAS_SIZE / 2) + (saturnRadiusOrbit * Math.sin(saturnAngle * Math.PI / 180));
   ctx.drawImage(saturn, (saturnX-saturn.width/5), saturnY-saturn.width/12.2, saturn.width*0.4, saturn.height*0.4);
-  saturnAngle += 1/saturnYear;
+  saturnAngle += (1/saturnYear)*SPEED;
+  SATURN["angle"] = saturnAngle;
   if (saturnAngle >= 3600) {
     saturnAngle = 0;
   }
-
+  animateOrbit(SATURN);
 }
 
 function animateUranus() {
-  uranusX = (CANVAS_SIZE / 2) - (uranusRadiusOrbit * Math.cos(uranusAngle * Math.PI / 180));
-  uranusY = (CANVAS_SIZE / 2) - (uranusRadiusOrbit * Math.sin(uranusAngle * Math.PI / 180));
+  animateOrbit(URANUS);
+  uranusX = (CANVAS_SIZE / 2) + (uranusRadiusOrbit * Math.cos(uranusAngle * Math.PI / 180));
+  uranusY = (CANVAS_SIZE / 2) + (uranusRadiusOrbit * Math.sin(uranusAngle * Math.PI / 180));
   ctx.drawImage(uranus, (uranusX-uranus.width/6), uranusY-uranus.width/6, uranus.width*0.33, uranus.height*0.33);
-  uranusAngle += 1/uranusYear;
+  uranusAngle += (1/uranusYear)*SPEED;
+  URANUS["angle"] = uranusAngle;
   if (uranusAngle >= 3600) {
     uranusAngle = 0;
   }
 }
 
 function animateNeptune() {
-  neptuneX = (CANVAS_SIZE / 2) - (neptuneRadiusOrbit * Math.cos(neptuneAngle * Math.PI / 180));
-  neptuneY = (CANVAS_SIZE / 2) - (neptuneRadiusOrbit * Math.sin(neptuneAngle * Math.PI / 180));
+  animateOrbit(NEPTUNE);
+  neptuneX = (CANVAS_SIZE / 2) + (neptuneRadiusOrbit * Math.cos(neptuneAngle * Math.PI / 180));
+  neptuneY = (CANVAS_SIZE / 2) + (neptuneRadiusOrbit * Math.sin(neptuneAngle * Math.PI / 180));
   ctx.drawImage(neptune, (neptuneX-neptune.width/6), neptuneY-neptune.width/6, neptune.width*0.33, neptune.height*0.33);
-  neptuneAngle += 1/neptuneYear;
+  neptuneAngle += (1/neptuneYear)*SPEED;
+  NEPTUNE["angle"] = neptuneAngle;
   if (neptuneAngle >= 3600) {
     neptuneAngle = 0;
   }
