@@ -10,7 +10,7 @@ function Planet(name, img, orbitRadius, angle, yearLength, scale) {
   this.img = new Image();
   this.img.src = img;
   this.orbitRadius = orbitRadius;
-  this.radius = this.img.width*10;
+  this.radius = this.img.width*10890;
   this.angle = angle;
   this.startingAngle = angle;
   this.yearLength = yearLength;
