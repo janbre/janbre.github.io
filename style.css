@@ -1,9 +1,0 @@
-body {
-  min-width: 1280px;
-  min-height: 1080px;
-  background-color: black;
-}
-
-canvas {
-  border: 1px solid black;
-}
